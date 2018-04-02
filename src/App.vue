@@ -1,18 +1,18 @@
 <template>
   <div id="app">
     <navbar></navbar>
-    <something_else></something_else>
+    <story></story>
   </div>
 </template>
 
 <script>
 
 import navbar from './components/navbar.vue'
-import something_else from './components/something_else.vue'
+import story from './components/story.vue'
 
 export default {
   name: 'App',
-  components: { navbar, something_else
+  components: { navbar, story
   }
 }
 </script>
