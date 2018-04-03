@@ -4,11 +4,10 @@
     <div class="media-content">
       <div class="content">
         <p>
-          <strong>John Smith</strong> <small>@johnsmith</small>
           <br>
-          {{msg}}
+          {{msg}} <a>(news.ycombinator.com)</a>
         </p>
-        <small><a>comments</a> · <a>hide</a> · 3 hrs</small>
+        <small> 3 points · <a><strong><small>johnsmith</small></strong></a> · <a>discuss</a> · <a>hide</a> · 3 hrs</small>
         </div>
     </div>
   </article>
