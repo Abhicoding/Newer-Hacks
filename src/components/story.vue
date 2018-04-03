@@ -1,13 +1,13 @@
 <template>
   <div class="story">
-    <article class="media">
+    <article v-for="item in $data.msg" class="media">
     <div class="media-content">
       <div class="content">
         <p>
           <br>
-          {{$data.msg|json}} <a>(news.ycombinator.com)</a>
+          {{item.title}} <a v-bind:href="item.url" target="_blank">({{item.url.hostname}})</a>
         </p>
-        <small> 3 points · <a><strong><small>johnsmith</small></strong></a> · <a>discuss</a> · <a>hide</a> · 3 hrs</small>
+        <small> {{item.score}} points · <a><strong><small>{{item.by}}</small></strong></a> · <a>discuss</a> · <a>hide</a> · <time>{{item.time}}</time></small>
         </div>
     </div>
   </article>
@@ -20,12 +20,18 @@ export default {
   name: 'story',
   created () {
     fetch("https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty").then(res => res.json()).then(res => {
-      this.msg= res
-      })
+      for (let x=0; x < 25; x++) {
+        fetch('https://hacker-news.firebaseio.com/v0/item/' + res[x] + '.json?print=pretty').then(res => res.json()).then(res => {
+          let url = new URL(res.url)
+          console.log(url)
+          res.url = url
+          this.msg.push(res)})
+      }
+    })
   },
   data () {
   return {
-    msg: {}
+    msg: []
     }
   }
 }
