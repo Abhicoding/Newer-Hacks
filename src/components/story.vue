@@ -5,7 +5,7 @@
       <div class="content">
         <p>
           <br>
-          {{msg}} <a>(news.ycombinator.com)</a>
+          {{$data.msg|json}} <a>(news.ycombinator.com)</a>
         </p>
         <small> 3 points · <a><strong><small>johnsmith</small></strong></a> · <a>discuss</a> · <a>hide</a> · 3 hrs</small>
         </div>
@@ -15,11 +15,17 @@
 </template>
 
 <script>
+
 export default {
   name: 'story',
+  created () {
+    fetch("https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty").then(res => res.json()).then(res => {
+      this.msg= res
+      })
+  },
   data () {
-    return {
-      msg: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.'
+  return {
+    msg: {}
     }
   }
 }
