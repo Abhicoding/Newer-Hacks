@@ -23,7 +23,6 @@ export default {
       for (let x=0; x < 25; x++) {
         fetch('https://hacker-news.firebaseio.com/v0/item/' + res[x] + '.json?print=pretty').then(res => res.json()).then(res => {
           let url = new URL(res.url)
-          console.log(url)
           res.url = url
           this.msg.push(res)})
       }

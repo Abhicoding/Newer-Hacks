@@ -7,24 +7,25 @@
   </div>
   <div class="navbar-menu">
     <div class="navbar-start">
-        <a class="navbar-item" href="https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty">
+        <a class="navbar-item" @click="selected = 1" :class="{highlight:selected == 1}" href="/new">
           New
         </a>
-        <a class="navbar-item" href="https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty">
+        <a class="navbar-item" @click="selected = 2" :class="{highlight:selected == 2}" href="/top">
           Top
         </a>
-        <a class="navbar-item" href="https://bulma.io/documentation/columns/basics/">
+        <a class="navbar-item" @click="selected = 3" :class="{highlight:selected == 3}" href="#">
            Best
         </a>
-        <a class="navbar-item" href="https://bulma.io/documentation/layout/container/">
+        <a class="navbar-item" @click="selected = 4" :class="{highlight:selected == 4}" href="#">
           Ask
         </a>
-        <a class="navbar-item" href="https://bulma.io/documentation/form/general/">
+        <a class="navbar-item" @click="selected = 5" :class="{highlight:selected == 5}" href="#">
           Jobs
         </a>
-        <a class="navbar-item" href="https://bulma.io/documentation/form/general/">
+        <a class="navbar-item" @click="selected = 6" :class="{highlight:selected == 6}" href="#">
           Show
         </a>
+        <a></a>
     </div>
   </div>
 </nav>
@@ -35,7 +36,12 @@ export default {
   name: 'siteName',
   data () {
     return {
-      msg: 'Newer Hacks'
+      msg: 'Newer Hacks',
+      selected: undefined
+    }
+  },
+  methods: {
+    validate: ()=>{      
     }
   }
 }
@@ -62,8 +68,20 @@ export default {
   font-size: 80%;
   color: #466EFF;
   font-weight: bold;
+  border-bottom: solid 0.2em orange;
+  box-sizing: border-box;
 }
+
+.highlight {
+  font-size: 80%;
+  color: #466EFF !important;
+  font-weight: bold;
+  margin: 0%;
+  box-sizing: border-box;
+  border-bottom: solid 0.2em orange;
+}
+
 .navbar {
-  border-bottom: solid 0.1em steelblue;
+  border-bottom: solid 0.1em #466EFF;
 }
 </style>
