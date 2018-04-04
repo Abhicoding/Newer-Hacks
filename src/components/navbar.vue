@@ -7,13 +7,13 @@
   </div>
   <div class="navbar-menu">
     <div class="navbar-start">
-        <a class="navbar-item" @click="selected = 1" :class="{highlight:selected == 1}" href="/new">
+        <router-link to="/new" class="navbar-item" @click="selected = 1" :class="{highlight:selected == 1}">
           New
-        </a>
-        <a class="navbar-item" @click="selected = 2" :class="{highlight:selected == 2}" href="/top">
+        </router-link>
+        <router-link to="/top" class="navbar-item" @click="selected = 2" :class="{highlight:selected == 2}">
           Top
-        </a>
-        <a class="navbar-item" @click="selected = 3" :class="{highlight:selected == 3}" href="#">
+        </router-link>
+        <!-- <a class="navbar-item" @click="selected = 3" :class="{highlight:selected == 3}" href="#">
            Best
         </a>
         <a class="navbar-item" @click="selected = 4" :class="{highlight:selected == 4}" href="#">
@@ -24,7 +24,7 @@
         </a>
         <a class="navbar-item" @click="selected = 6" :class="{highlight:selected == 6}" href="#">
           Show
-        </a>
+        </a> -->
         <a></a>
     </div>
   </div>
@@ -38,10 +38,6 @@ export default {
     return {
       msg: 'Newer Hacks',
       selected: undefined
-    }
-  },
-  methods: {
-    validate: ()=>{      
     }
   }
 }
@@ -72,7 +68,7 @@ export default {
   box-sizing: border-box;
 }
 
-.highlight {
+.router-link-active {
   font-size: 80%;
   color: #466EFF !important;
   font-weight: bold;

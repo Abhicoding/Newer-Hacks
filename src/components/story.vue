@@ -1,6 +1,6 @@
 <template>
   <div class="story">
-    <article v-for="item in $data.msg" class="media">
+    <article v-for="item in msg" class="media">
     <div class="media-content">
       <div class="content">
         <p>
@@ -20,12 +20,15 @@ export default {
   name: 'story',
   created () {
     fetch("https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty").then(res => res.json()).then(res => {
-      for (let x=0; x < 25; x++) {
-        fetch('https://hacker-news.firebaseio.com/v0/item/' + res[x] + '.json?print=pretty').then(res => res.json()).then(res => {
-          let url = new URL(res.url)
-          res.url = url
-          this.msg.push(res)})
-      }
+      // for (let x=0; x < 25; x++) {
+        fetch('https://hacker-news.firebaseio.com/v0/item/' + res[0] + '.json?print=pretty').then(res => res.json()).then(res => {
+          let link = new URL(res.url)
+          console.log(link, res.url)
+          res.url = link
+          this.msg.push(res)}).catch((e) => {
+    console.log(e);
+})
+      // }
     })
   },
   data () {
