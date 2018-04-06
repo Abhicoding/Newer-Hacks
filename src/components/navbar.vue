@@ -54,7 +54,7 @@ export default {
       fetch("https://hacker-news.firebaseio.com" + input + ".json?print=pretty")
       .then(res => res.json())
       .then(res => {
-        for (let x=0; x < 2; x++) {
+        for (let x=0; x < 10; x++) {
           fetch('https://hacker-news.firebaseio.com/v0/item/' + res[x] + '.json?print=pretty')
           .then(res => res.json())
           .then(res => {
