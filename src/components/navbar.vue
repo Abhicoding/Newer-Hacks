@@ -8,25 +8,25 @@
     </div>
     <div class="navbar-menu">
       <div class="navbar-start">
-        <router-link to="/v0/newstories" class="navbar-item" @click.native="selected = 1; fetchdata('/v0/newstories')" :class="{highlight:selected == 1}">
+        <a></a>
+        <router-link to="/v0/newstories" class="navbar-item" native="selected = 1" @click.native="selected = 1; fetchdata('/v0/newstories')" :class="{highlight:selected == 1}">
           New
         </router-link>
         <router-link to="/v0/topstories" class="navbar-item" @click.native="selected = 2; fetchdata('/v0/topstories')" :class="{highlight:selected == 2}">
           Top
         </router-link>
         <router-link to="/v0/beststories" class="navbar-item" @click.native="selected = 3; fetchdata('/v0/beststories')" :class="{highlight:selected == 3}">
-           Best
+          Best
         </router-link>
-        <span>{{$router.fullPath}}</span>
-        <!-- <a class="navbar-item" @click="selected = 4" :class="{highlight:selected == 4}" href="#">
+        <router-link to="/v0/askstories" class="navbar-item" @click.native="selected = 4; fetchdata('/v0/askstories')" :class="{highlight:selected == 3}">
           Ask
-        </a>
-        <a class="navbar-item" @click="selected = 5" :class="{highlight:selected == 5}" href="#">
+        </router-link>
+        <router-link to="/v0/jobstories" class="navbar-item" @click.native="selected = 5; fetchdata('/v0/jobstories')" :class="{highlight:selected == 3}">
           Jobs
-        </a>
-        <a class="navbar-item" @click="selected = 6" :class="{highlight:selected == 6}" href="#">
+        </router-link>
+        <router-link to="/v0/showstories" class="navbar-item" @click.native="selected = 6; fetchdata('/v0/showstories')" :class="{highlight:selected == 3}">
           Show
-        </a> -->
+        </router-link>
         <a></a>
       </div>
     </div>
@@ -40,6 +40,9 @@ import story from './story.vue'
 
 export default {
   name: 'siteName',
+  created () {
+    this.fetchdata()
+  },
   data () {
     return {
       msg: 'Newer Hacks',
@@ -49,7 +52,7 @@ export default {
   },
   components: {story},
   methods: {
-    fetchdata: function (input) {
+    fetchdata: function (input= '/v0/newstories') {
       this.story = []
       fetch("https://hacker-news.firebaseio.com" + input + ".json?print=pretty")
       .then(res => res.json())
@@ -58,15 +61,20 @@ export default {
           fetch('https://hacker-news.firebaseio.com/v0/item/' + res[x] + '.json?print=pretty')
           .then(res => res.json())
           .then(res => {
-            let link = new URL(res.url)
-            // console.log(link, res.url)
-            res.url = link
+            if (res.url) {
+              let link = new URL(res.url)
+              res.url = link
+              // res.url.hostname = ''
+            } else {
+              let hostname = ''
+              res.url = hostname
+            }
             this.story.push(res)})
           .catch((e) => {
             console.log(e);
           })
         }
-        console.log(this.story)
+        // console.log(this.story)
       })
     }
   }

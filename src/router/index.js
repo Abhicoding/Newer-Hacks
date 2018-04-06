@@ -13,7 +13,7 @@ export default new Router({
       component: story
     },
     {
-      path: '/top',
+      path: '/v0/topstories',
       name: 'top',
       component: story
     }
