@@ -1,11 +1,11 @@
 <template>
   <div class="story">
-    <article v-for="item in story" class="media">
+    <article v-for="item in story" v-bind:key=item.id class="media">
     <div class="media-content">
       <div class="content">
         <p>
           <br>
-          {{item.title}} <a v-bind:href="item.url" target="_blank">({{item.url.hostname}})</a>
+          {{item.title}} <a v-if="item.url.hostname" v-bind:href="item.url" target="_blank">({{item.url.hostname}})</a>
         </p>
         <small> {{item.score}} points · <a><strong><small>{{item.by}}</small></strong></a> · <a>discuss</a> · <a>hide</a> · <time>{{item.time}}</time></small>
         </div>

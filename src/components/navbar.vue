@@ -61,6 +61,7 @@ export default {
           fetch('https://hacker-news.firebaseio.com/v0/item/' + res[x] + '.json?print=pretty')
           .then(res => res.json())
           .then(res => {
+            console.log(res)
             if (res.url) {
               let link = new URL(res.url)
               res.url = link
