@@ -1,22 +1,24 @@
 <template>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="#">
-      {{msg}}
-    </a>
-  </div>
-  <div class="navbar-menu">
-    <div class="navbar-start">
-        <router-link to="/new" class="navbar-item" @click="selected = 1" :class="{highlight:selected == 1}">
+<div>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="#">
+        {{msg}}
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <router-link to="/v0/newstories" class="navbar-item" @click.native="selected = 1; fetchdata('/v0/newstories')" :class="{highlight:selected == 1}">
           New
         </router-link>
-        <router-link to="/top" class="navbar-item" @click="selected = 2" :class="{highlight:selected == 2}">
+        <router-link to="/v0/topstories" class="navbar-item" @click.native="selected = 2; fetchdata('/v0/topstories')" :class="{highlight:selected == 2}">
           Top
         </router-link>
-        <!-- <a class="navbar-item" @click="selected = 3" :class="{highlight:selected == 3}" href="#">
+        <router-link to="/v0/beststories" class="navbar-item" @click.native="selected = 3; fetchdata('/v0/beststories')" :class="{highlight:selected == 3}">
            Best
-        </a>
-        <a class="navbar-item" @click="selected = 4" :class="{highlight:selected == 4}" href="#">
+        </router-link>
+        <span>{{$router.fullPath}}</span>
+        <!-- <a class="navbar-item" @click="selected = 4" :class="{highlight:selected == 4}" href="#">
           Ask
         </a>
         <a class="navbar-item" @click="selected = 5" :class="{highlight:selected == 5}" href="#">
@@ -26,18 +28,46 @@
           Show
         </a> -->
         <a></a>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+  <story :story="story"></story>
+</div>
 </template>
 
 <script>
+import story from './story.vue'
+
 export default {
   name: 'siteName',
   data () {
     return {
       msg: 'Newer Hacks',
-      selected: undefined
+      selected: undefined,
+      story: []
+    }
+  },
+  components: {story},
+  methods: {
+    fetchdata: function (input) {
+      this.story = []
+      fetch("https://hacker-news.firebaseio.com" + input + ".json?print=pretty")
+      .then(res => res.json())
+      .then(res => {
+        for (let x=0; x < 2; x++) {
+          fetch('https://hacker-news.firebaseio.com/v0/item/' + res[x] + '.json?print=pretty')
+          .then(res => res.json())
+          .then(res => {
+            let link = new URL(res.url)
+            // console.log(link, res.url)
+            res.url = link
+            this.story.push(res)})
+          .catch((e) => {
+            console.log(e);
+          })
+        }
+        console.log(this.story)
+      })
     }
   }
 }
@@ -75,6 +105,10 @@ export default {
   margin: 0%;
   box-sizing: border-box;
   border-bottom: solid 0.2em orange;
+}
+
+.highlight:not(:last-child) {
+    margin-bottom: 0%;
 }
 
 .navbar {

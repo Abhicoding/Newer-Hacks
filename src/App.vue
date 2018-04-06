@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <navbar></navbar>
-    <router-view class="view one"></router-view>
     <!-- <router-view class="view two" name="b"></router-view> -->
   </div>
 </template>

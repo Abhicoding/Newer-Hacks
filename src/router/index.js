@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import navbar from '@/components/navbar'
+// import navbar from '@/components/navbar'
 import story from '@/components/story'
 
 Vue.use(Router)
@@ -8,7 +8,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/new',
+      path: '/v0/newstories',
       name: 'new',
       component: story
     },
