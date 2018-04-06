@@ -31,7 +31,18 @@
       </div>
     </div>
   </nav>
-  <story :story="story"></story>
+  <div>
+    <story :story="story"></story>
+  </div>
+  <span class="pagination">
+    <nav class="pagination is-rounded is-small is-centered" role="navigation" aria-label="pagination">
+      <a class="pagination-previous" @click="pagedown()">Previous</a>
+      <ul class="pagination-list">
+        <li><a class="pagination-link" aria-label="On page 1">{{page}}</a></li>
+      </ul>
+      <a class="pagination-next" @click="page++">Next page</a>
+    </nav>
+  </span>
 </div>
 </template>
 
@@ -47,7 +58,8 @@ export default {
     return {
       msg: 'Newer Hacks',
       selected: undefined,
-      story: []
+      story: [],
+      page: 1
     }
   },
   components: {story},
@@ -77,6 +89,15 @@ export default {
         }
         // console.log(this.story)
       })
+    },
+    pageup: function (){
+      return this.page++
+    },
+    pagedown: function(){
+      if (this.page!== 1) {
+      return this.page--
+      }
+      this.page
     }
   }
 }
@@ -123,4 +144,26 @@ export default {
 .navbar {
   border-bottom: solid 0.1em #466EFF;
 }
+
+.pagination nav {
+  margin-top: 2%;
+  border: none;
+  position: inherit;
+}
+
+.pagination {
+  border-top: 1px solid rgba(180, 180, 180, 0.7);
+  margin: 0;
+}
+
+.pagination nav {
+ display:-webkit-flex;
+ min-width: 30%;
+ -webkit-box-align: center; 
+ margin-left: 30% !important;
+}
+.pagination-list {
+  max-width: 10%;
+}
+
 </style>
