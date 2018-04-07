@@ -8,7 +8,6 @@
     </div>
     <div class="navbar-menu">
       <div class="navbar-start">
-        <a></a>
         <router-link to="/v0/newstories" class="navbar-item" native="selected = 1" @click.native="selected = 1; fetchdata('/v0/newstories')" :class="{highlight:selected == 1}">
           New
         </router-link>
@@ -34,7 +33,7 @@
   <div>
     <story :story="story"></story>
   </div>
-  <span class="pagination">
+  <div class="pagination" v-if="story.length > 5">
     <nav class="pagination is-rounded is-small is-centered" role="navigation" aria-label="pagination">
       <a class="pagination-previous" @click="pagedown()">Previous</a>
       <ul class="pagination-list">
@@ -42,7 +41,7 @@
       </ul>
       <a class="pagination-next" @click="page++">Next page</a>
     </nav>
-  </span>
+  </div>
 </div>
 </template>
 
@@ -160,8 +159,9 @@ export default {
  display:-webkit-flex;
  min-width: 30%;
  -webkit-box-align: center; 
- margin-left: 30% !important;
+ margin: auto !important;
 }
+
 .pagination-list {
   max-width: 10%;
 }
