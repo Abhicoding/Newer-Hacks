@@ -8,22 +8,22 @@
     </div>
     <div class="navbar-menu">
       <div class="navbar-start">
-        <router-link to="/v0/newstories" class="navbar-item" native="selected = 1" @click.native="selected = 1; fetchTabData('/v0/newstories')" :class="{highlight:selected == 1}">
+        <router-link to="newstories" class="navbar-item" @click.native="selected = 1; fetchTabData('/v0/newstories')">
           New
         </router-link>
-        <router-link to="/v0/topstories" class="navbar-item" @click.native="selected = 2; fetchTabData('/v0/topstories')" :class="{highlight:selected == 2}">
+        <router-link to="topstories" class="navbar-item" @click.native="selected = 2; fetchTabData('/v0/topstories')">
           Top
         </router-link>
-        <router-link to="/v0/beststories" class="navbar-item" @click.native="selected = 3; fetchTabData('/v0/beststories')" :class="{highlight:selected == 3}">
+        <router-link to="beststories" class="navbar-item" @click.native="selected = 3; fetchTabData('/v0/beststories')">
           Best
         </router-link>
-        <router-link to="/v0/askstories" class="navbar-item" @click.native="selected = 4; fetchTabData('/v0/askstories')" :class="{highlight:selected == 3}">
+        <router-link to="askstories" class="navbar-item" @click.native="selected = 4; fetchTabData('/v0/askstories')">
           Ask
         </router-link>
-        <router-link to="/v0/jobstories" class="navbar-item" @click.native="selected = 5; fetchTabData('/v0/jobstories')" :class="{highlight:selected == 3}">
+        <router-link to="jobstories" class="navbar-item" @click.native="selected = 5; fetchTabData('/v0/jobstories')">
           Jobs
         </router-link>
-        <router-link to="/v0/showstories" class="navbar-item" @click.native="selected = 6; fetchTabData('/v0/showstories')" :class="{highlight:selected == 3}">
+        <router-link to="showstories" class="navbar-item" @click.native="selected = 6; fetchTabData('/v0/showstories')">
           Show
         </router-link>
         <a></a>
@@ -43,6 +43,7 @@ export default {
   name: 'siteName',
   created () {
     this.fetchTabData()
+    this.selected = 1
   },
   data () {
     return {
@@ -60,7 +61,7 @@ export default {
       .then(res => res.json())
       .then(res => {
         this.tabdata = res
-        // console.log(this.tabdata, '###')
+        console.log(this.tabdata, '###')
       })
     }
   }

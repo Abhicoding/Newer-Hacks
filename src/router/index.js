@@ -8,12 +8,16 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/v0/newstories',
+      path: '/',
+      name: 'home'
+    },
+    {
+      path: '/newstories',
       name: 'new',
       component: story
     },
     {
-      path: '/v0/topstories',
+      path: '/topstories',
       name: 'top',
       component: story
     }
