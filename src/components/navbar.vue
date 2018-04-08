@@ -60,7 +60,7 @@ export default {
       .then(res => res.json())
       .then(res => {
         this.tabdata = res
-        console.log(this.tabdata, '###')
+        // console.log(this.tabdata, '###')
       })
     }
   }

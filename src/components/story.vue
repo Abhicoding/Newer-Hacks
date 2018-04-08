@@ -12,7 +12,7 @@
       </div>
     </article>
     <div>
-        <pagination v-if="story.length > 0" :pagenum="page" v-on:pageprevious="pagedown" v-on:pagenext="pageup"></pagination>
+        <pagination v-if="story.length > 0" :pagenum="page" :last='lastpage' v-on:pageprevious="pagedown" v-on:pagenext="pageup"></pagination>
     </div>
   </div>
 </template>
@@ -21,17 +21,24 @@
 import pagination from './pagination.vue'
 
 export default {
+  
   name: 'story', 
+  
   props: ['tab'] ,
+  
   created: function () {
+    this.lastPageNum()
     return this.getPosts(this.tab, this.page)
   },
+  
   data () {
     return {
       story: [],
-      page: 1
+      page: 1,
+      lastpage: undefined
     }
   },
+  
   methods: {
 
     getPosts: function (tab, num) {
@@ -59,20 +66,28 @@ export default {
 
     pageup: function () {
       this.page++
+    },
+
+    lastPageNum: function () {
+      this.lastpage = Math.ceil(this.tab.length/10)
     }
       
   },
+  
   watch: {
+    
     tab: function () {
       this.story=[]
       this.page=1
       this.getPosts(this.tab, this.page)
     },
+    
     page: function () {
       this.story=[]
       this.getPosts(this.tab, this.page)
     }
   },
+  
   components: {
     pagination
   }

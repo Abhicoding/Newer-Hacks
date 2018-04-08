@@ -5,7 +5,7 @@
       <ul class="pagination-list">
         <li><a class="pagination-link" aria-label="On page ">{{pagenum}}</a></li>
       </ul>
-      <a class="pagination-next" @click="$emit('pagenext')">Next page</a>
+      <a v-if="(pagenum !== last)" class="pagination-next" @click="$emit('pagenext')">Next page</a>
     </nav>
   </div>
 </template>
@@ -14,7 +14,8 @@
 
 export default {
   name:'pagination',
-  props:['pagenum']
+  
+  props:['pagenum', 'last']
 }
 </script>
 
