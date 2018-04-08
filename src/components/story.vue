@@ -97,7 +97,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .content {
-    font-size: 75%;
+    font-size: 90%;
     box-shadow: 0.1pc;
     box-sizing: border-box;
     margin-top: 0%;

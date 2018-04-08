@@ -41,4 +41,24 @@ export default {
 .pagination-list {
   max-width: 10%;
 }
+
+.pagination-next, .pagination-previous {
+  background-color: orange;
+}
+
+.pagination-next:hover, .pagination-previous:hover {
+  background-color:#466EFF;
+  color:white;
+}
+
+.pagination-link {
+  background-color:#466EFF;
+  color: white;
+}
+
+.pagination-link:hover {
+  background-color: orange;
+  color:black;
+}
+
 </style>

@@ -2,7 +2,7 @@
 <div>
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item">
+      <a class="navbar-item" href="/">
         {{msg}}
       </a>
     </div>
@@ -102,9 +102,9 @@ export default {
   border-bottom: solid 0.2em orange;
 }
 
-.highlight:not(:last-child) {
+/* .highlight:not(:last-child) {
     margin-bottom: 0%;
-}
+} */
 
 .navbar {
   border-bottom: solid 0.1em #466EFF;
