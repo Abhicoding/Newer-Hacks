@@ -10,17 +10,71 @@
           <small> {{item.score}} points · <a><strong><small>{{item.by}}</small></strong></a> · <a>discuss</a> · <a>hide</a> · <time>{{item.time}}</time></small>
           </div>
       </div>
-  </article>
+    </article>
+    <div>
+        <pagination v-if="story.length > 0" :pagenum="page" v-on:pageprevious="pagedown" v-on:pagenext="pageup"></pagination>
+    </div>
   </div>
 </template>
 
 <script>
+import pagination from './pagination.vue'
 
 export default {
   name: 'story', 
-  props: ['story'] ,
+  props: ['tab'] ,
   created: function () {
-    // console.log(this.story.value)
+    return this.getPosts(this.tab, this.page)
+  },
+  data () {
+    return {
+      story: [],
+      page: 1
+    }
+  },
+  methods: {
+
+    getPosts: function (tab, num) {
+      for (let x = 10 * (num - 1); x < 10 * (num); x++) {
+          fetch('https://hacker-news.firebaseio.com/v0/item/' + tab[x] + '.json?print=pretty')
+          .then(res => res.json())
+          .then(res => {
+            if (res.url) {
+              let link = new URL(res.url)
+              res.url = link
+            } else {
+              let hostname = ''
+              res.url = hostname
+            }
+            this.story.push(res)})
+          .catch((e) => {
+            console.log(e);
+          })
+        }
+      },
+
+    pagedown: function () {
+      this.page--
+    },
+
+    pageup: function () {
+      this.page++
+    }
+      
+  },
+  watch: {
+    tab: function () {
+      this.story=[]
+      this.page=1
+      this.getPosts(this.tab, this.page)
+    },
+    page: function () {
+      this.story=[]
+      this.getPosts(this.tab, this.page)
+    }
+  },
+  components: {
+    pagination
   }
 }
 </script>
