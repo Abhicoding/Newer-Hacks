@@ -7,7 +7,7 @@
           <p>
             {{item.title}} <a v-if="item.url.hostname" v-bind:href="item.url" target="_blank">({{item.url.hostname}})</a>
           </p>
-          <small> {{item.score}} points · <a><strong><small>{{item.by}}</small></strong></a> · <a>discuss</a> · <a>hide</a> · <time>{{item.time}}</time></small>
+          <small> {{item.score}} points · <a><strong><small>{{item.by}}</small></strong></a> · <a>discuss</a> · <a>hide</a> · <time>{{item.elapsed}}</time></small>
         </div>
       </article>
     </div>
@@ -29,7 +29,7 @@
     
     created: function () {
       this.lastPageNum()
-      return this.getPosts(this.tab, this.page)
+      this.getPosts()
     },
     
     data () {
@@ -42,9 +42,9 @@
     
     methods: {
 
-      getPosts: function (tab, num) {
-        for (let x = 10 * (num - 1); x < 10 * (num); x++) {
-          fetch('https://hacker-news.firebaseio.com/v0/item/' + tab[x] + '.json?print=pretty')
+      getPosts: function () {
+        for (let x = 10 * (this.page - 1); x < 10 * (this.page); x++) {
+          fetch('https://hacker-news.firebaseio.com/v0/item/' + this.tab[x] + '.json?print=pretty')
             .then(res => res.json())
             .then(res => {
               if (res.url) {
@@ -54,6 +54,7 @@
                 let hostname = ''
                 res.url = hostname
               }
+              this.now(res)
               this.story.push(res)
               })
             .catch((e) => {
@@ -73,6 +74,21 @@
 
       lastPageNum: function () {
         this.lastpage = Math.ceil(this.tab.length/10)
+      },
+
+      now: function(input) {
+        let seconds = Math.ceil(Date.now()/1000) - input.time
+        if (seconds < 59) {
+          return input.elapsed = (seconds > 1 ? seconds + " seconds ago" : seconds + " second ago") 
+        } else if (seconds < 3600) {
+          return input.elapsed = (Math.floor(seconds/60) > 1 ? Math.floor(seconds/60) + " minutes ago" : Math.floor(seconds/60) + " minute ago")
+        } else if (seconds < 24 * 3600) {
+          return input.elapsed = (Math.floor(seconds/3600) > 1 ? Math.floor(seconds/3600) + " hours ago" : Math.floor(seconds/3600) + " hour ago") 
+        } else if (seconds < 7 * 24 * 3600) {
+          return input.elapsed = (Math.floor(seconds/(24 * 3600)) > 1 ? Math.floor(seconds/(24 * 3600)) + " days ago" : Math.floor(seconds/(24 * 3600)) + " day ago")
+        } else {
+          return input.elapsed = (Math.floor(seconds/(7 * 24 * 3600)) > 1 ? Math.floor(seconds/(7 * 24 * 3600)) + " weeks ago" : Math.floor(seconds/(7 * 24 * 3600)) + " week ago")
+        }
       }
         
     },
