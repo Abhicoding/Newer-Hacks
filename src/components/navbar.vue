@@ -14,7 +14,7 @@
       </div>
     </div>
   </nav>
-  <div>
+  <div class="story-div">
     <story v-if="tabdata.length > 0" :tab="tabdata"></story>
   </div>
 </div>
@@ -33,7 +33,7 @@
     
     data () {
       return {
-        tabs: ['New', 'Top', 'Best', 'Ask', 'Jobs', 'Show'],
+        tabs: ['New', 'Top', 'Best', 'Ask', 'Job', 'Show'],
         msg: 'Newer Hacks',
         selected: undefined,
         tabdata: [],
@@ -44,13 +44,12 @@
     
     methods: {
       
-      fetchTabData: function (input= '/v0/newstories') {
+      fetchTabData: function (input= '/v0/newstories') { // fetches story ids for the tab
         this.tabdata = []
         fetch("https://hacker-news.firebaseio.com" + input + ".json?print=pretty")
         .then(res => res.json())
         .then(res => {
           this.tabdata = res
-          console.log(this.tabdata, '###')
         })
       }
     }
@@ -64,7 +63,7 @@
   .navbar-brand a {
     font-weight: bold;
     color: #466EFF;
-    font-size: 120%;
+    font-size: 130%;
   }
 
   .navbar-brand :hover{
@@ -73,12 +72,12 @@
   }
 
   .navbar-start a {
-    font-size: 75%;
+    font-size: 90%;
     color: orange;
   }
 
   .navbar-start a:hover{
-    font-size: 80%;
+    font-size: 90%;
     color: #466EFF;
     font-weight: bold;
     border-bottom: solid 0.2em orange;
@@ -89,7 +88,6 @@
     font-size: 80%;
     color: #466EFF !important;
     font-weight: bold;
-    margin: 0%;
     box-sizing: border-box;
     border-bottom: solid 0.2em orange;
   }

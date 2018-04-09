@@ -21,12 +21,6 @@
 
 <style>
 
-  /* .pagination nav {
-    margin-top: 2%;
-    border: none;
-    position: inherit;
-  } */
-
   .pagination nav { 
     margin: auto !important;
   }

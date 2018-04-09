@@ -36,13 +36,13 @@
       return {
         story: [],
         page: 1,
-        lastpage: undefined,
+        lastpage: undefined
       }
     },
     
     methods: {
 
-      getPosts: function () {
+      getPosts: function () { // populates data with stories according to page value and tab
         for (let x = 10 * (this.page - 1); x < 10 * (this.page); x++) {
           fetch('https://hacker-news.firebaseio.com/v0/item/' + this.tab[x] + '.json?print=pretty')
             .then(res => res.json())
@@ -61,22 +61,21 @@
               console.log(e);
             })
           }
-          console.log(this.story)
         },
 
-      pagedown: function () {
+      pagedown: function () { // changes page number down
         this.page--
       },
 
-      pageup: function () {
+      pageup: function () { // changes page number up
         this.page++
       },
 
-      lastPageNum: function () {
+      lastPageNum: function () { // calculates the last page number for the tab
         this.lastpage = Math.ceil(this.tab.length/10)
       },
 
-      now: function(input) {
+      now: function(input) { // converts UNIX time to time since posted in normal format
         let seconds = Math.ceil(Date.now()/1000) - input.time
         if (seconds < 59) {
           return input.elapsed = (seconds > 1 ? seconds + " seconds ago" : seconds + " second ago") 
@@ -95,13 +94,13 @@
     
     watch: {
       
-      tab: function () {
+      tab: function () { // on watch for tab change
         this.story=[]
         this.page=1
         this.getPosts(this.tab, this.page)
       },
       
-      page: function () {
+      page: function () { // on watch for page change
         this.story=[]
         this.getPosts(this.tab, this.page)
       }

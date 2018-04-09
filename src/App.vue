@@ -1,18 +1,20 @@
 <template>
   <div id="app">
-    <navbar></navbar>
+    <user></user>
+    <!-- <navbar></navbar> -->
     <!-- <router-view class="view two" name="b"></router-view> -->
+  
   </div>
 </template>
 
 <script>
 
 import navbar from './components/navbar.vue'
-import story from './components/story.vue'
+import user from './components/user.vue'
 
 export default {
   name: 'App',
-  components: { navbar, story
+  components: { navbar, user
   }
 }
 </script>
