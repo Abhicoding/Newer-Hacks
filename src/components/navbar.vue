@@ -8,25 +8,9 @@
     </div>
     <div class="navbar-menu">
       <div class="navbar-start">
-        <router-link to="newstories" class="navbar-item" @click.native="selected = 1; fetchTabData('/v0/newstories')">
-          New
+        <router-link v-for="(tabitem, index) of tabs" :key=index :to = "tabitem.toLowerCase() + 'stories'"   class="navbar-item" @click.native="selected = index+1; fetchTabData('/v0/' + tabitem.toLowerCase() + 'stories')">
+          {{tabitem}}
         </router-link>
-        <router-link to="topstories" class="navbar-item" @click.native="selected = 2; fetchTabData('/v0/topstories')">
-          Top
-        </router-link>
-        <router-link to="beststories" class="navbar-item" @click.native="selected = 3; fetchTabData('/v0/beststories')">
-          Best
-        </router-link>
-        <router-link to="askstories" class="navbar-item" @click.native="selected = 4; fetchTabData('/v0/askstories')">
-          Ask
-        </router-link>
-        <router-link to="jobstories" class="navbar-item" @click.native="selected = 5; fetchTabData('/v0/jobstories')">
-          Jobs
-        </router-link>
-        <router-link to="showstories" class="navbar-item" @click.native="selected = 6; fetchTabData('/v0/showstories')">
-          Show
-        </router-link>
-        <a></a>
       </div>
     </div>
   </nav>
@@ -45,11 +29,11 @@
     
     created () {
       this.fetchTabData()
-      this.selected = 1
     },
     
     data () {
       return {
+        tabs: ['New', 'Top', 'Best', 'Ask', 'Jobs', 'Show'],
         msg: 'Newer Hacks',
         selected: undefined,
         tabdata: [],

@@ -1,7 +1,8 @@
 <template>
   <div class="story">
     <div class="media-content">
-      <article v-for="item in story" v-bind:key=item.id class="media">
+      <article v-for="(item, key) in story" v-bind:key=item.id class="media">
+         <span class="postnum">{{ (key+1) + (page-1)*10 }}</span>
         <div class="content">
           <p>
             {{item.title}} <a v-if="item.url.hostname" v-bind:href="item.url" target="_blank">({{item.url.hostname}})</a>
@@ -35,7 +36,7 @@
       return {
         story: [],
         page: 1,
-        lastpage: undefined
+        lastpage: undefined,
       }
     },
     
@@ -43,7 +44,7 @@
 
       getPosts: function (tab, num) {
         for (let x = 10 * (num - 1); x < 10 * (num); x++) {
-            fetch('https://hacker-news.firebaseio.com/v0/item/' + tab[x] + '.json?print=pretty')
+          fetch('https://hacker-news.firebaseio.com/v0/item/' + tab[x] + '.json?print=pretty')
             .then(res => res.json())
             .then(res => {
               if (res.url) {
@@ -53,11 +54,13 @@
                 let hostname = ''
                 res.url = hostname
               }
-              this.story.push(res)})
+              this.story.push(res)
+              })
             .catch((e) => {
               console.log(e);
             })
           }
+          console.log(this.story)
         },
 
       pagedown: function () {
@@ -101,9 +104,10 @@
     box-shadow: 0.1pc;
     box-sizing: border-box;
     margin-top: 0%;
-    margin-left: 5%;
+    margin-left: 4%;
     border: 10px;
     padding: 0%;
+    float: left;
   }
   
   .media {
@@ -115,6 +119,11 @@
 
   .media-content {
     border-bottom: solid 0.1em #466EFF;
+  }
+
+  .postnum {
+    float: left;
+    margin: 1% 0% 0% 2%;
   }
 
 </style>

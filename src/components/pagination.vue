@@ -21,21 +21,14 @@
 
 <style>
 
-  .pagination nav {
+  /* .pagination nav {
     margin-top: 2%;
     border: none;
     position: inherit;
-  }
+  } */
 
-  .pagination nav {
-  display:-webkit-flex;
-  min-width: 30%;
-  -webkit-box-align: center; 
-  margin: auto !important;
-  }
-
-  .pagination-list {
-    max-width: 10%;
+  .pagination nav { 
+    margin: auto !important;
   }
 
   .pagination-next, .pagination-previous {
