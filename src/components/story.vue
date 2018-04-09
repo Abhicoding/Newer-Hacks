@@ -1,97 +1,97 @@
 <template>
   <div class="story">
-    <article v-for="item in story" v-bind:key=item.id class="media">
-      <div class="media-content">
+    <div class="media-content">
+      <article v-for="item in story" v-bind:key=item.id class="media">
         <div class="content">
           <p>
-            <br>
             {{item.title}} <a v-if="item.url.hostname" v-bind:href="item.url" target="_blank">({{item.url.hostname}})</a>
           </p>
           <small> {{item.score}} points · <a><strong><small>{{item.by}}</small></strong></a> · <a>discuss</a> · <a>hide</a> · <time>{{item.time}}</time></small>
-          </div>
-      </div>
-    </article>
+        </div>
+      </article>
+    </div>
+    <br>
     <div>
-        <pagination v-if="story.length > 0" :pagenum="page" :last='lastpage' v-on:pageprevious="pagedown" v-on:pagenext="pageup"></pagination>
+      <pagination v-if="story.length > 0" :pagenum="page" :last='lastpage' v-on:pageprevious="pagedown" v-on:pagenext="pageup"></pagination>
     </div>
   </div>
 </template>
 
 <script>
-import pagination from './pagination.vue'
+  import pagination from './pagination.vue'
 
-export default {
-  
-  name: 'story', 
-  
-  props: ['tab'] ,
-  
-  created: function () {
-    this.lastPageNum()
-    return this.getPosts(this.tab, this.page)
-  },
-  
-  data () {
-    return {
-      story: [],
-      page: 1,
-      lastpage: undefined
-    }
-  },
-  
-  methods: {
+  export default {
+    
+    name: 'story', 
+    
+    props: ['tab'] ,
+    
+    created: function () {
+      this.lastPageNum()
+      return this.getPosts(this.tab, this.page)
+    },
+    
+    data () {
+      return {
+        story: [],
+        page: 1,
+        lastpage: undefined
+      }
+    },
+    
+    methods: {
 
-    getPosts: function (tab, num) {
-      for (let x = 10 * (num - 1); x < 10 * (num); x++) {
-          fetch('https://hacker-news.firebaseio.com/v0/item/' + tab[x] + '.json?print=pretty')
-          .then(res => res.json())
-          .then(res => {
-            if (res.url) {
-              let link = new URL(res.url)
-              res.url = link
-            } else {
-              let hostname = ''
-              res.url = hostname
-            }
-            this.story.push(res)})
-          .catch((e) => {
-            console.log(e);
-          })
-        }
+      getPosts: function (tab, num) {
+        for (let x = 10 * (num - 1); x < 10 * (num); x++) {
+            fetch('https://hacker-news.firebaseio.com/v0/item/' + tab[x] + '.json?print=pretty')
+            .then(res => res.json())
+            .then(res => {
+              if (res.url) {
+                let link = new URL(res.url)
+                res.url = link
+              } else {
+                let hostname = ''
+                res.url = hostname
+              }
+              this.story.push(res)})
+            .catch((e) => {
+              console.log(e);
+            })
+          }
+        },
+
+      pagedown: function () {
+        this.page--
       },
 
-    pagedown: function () {
-      this.page--
-    },
+      pageup: function () {
+        this.page++
+      },
 
-    pageup: function () {
-      this.page++
+      lastPageNum: function () {
+        this.lastpage = Math.ceil(this.tab.length/10)
+      }
+        
     },
-
-    lastPageNum: function () {
-      this.lastpage = Math.ceil(this.tab.length/10)
-    }
+    
+    watch: {
       
-  },
-  
-  watch: {
-    
-    tab: function () {
-      this.story=[]
-      this.page=1
-      this.getPosts(this.tab, this.page)
+      tab: function () {
+        this.story=[]
+        this.page=1
+        this.getPosts(this.tab, this.page)
+      },
+      
+      page: function () {
+        this.story=[]
+        this.getPosts(this.tab, this.page)
+      }
     },
     
-    page: function () {
-      this.story=[]
-      this.getPosts(this.tab, this.page)
+    components: {
+      pagination
     }
-  },
-  
-  components: {
-    pagination
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -105,10 +105,16 @@ export default {
     border: 10px;
     padding: 0%;
   }
+  
   .media {
     padding-top: 1%;
     padding-bottom: 1%;
     margin-top: 0%;
     border-top: 1px solid rgba(180, 180, 180, 0.7);
   }
+
+  .media-content {
+    border-bottom: solid 0.1em #466EFF;
+  }
+
 </style>

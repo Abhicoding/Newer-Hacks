@@ -31,82 +31,87 @@
     </div>
   </nav>
   <div>
-    <story v-if="tabdata.length> 0" :tab="tabdata"></story>
+    <story v-if="tabdata.length > 0" :tab="tabdata"></story>
   </div>
 </div>
 </template>
 
 <script>
-import story from './story.vue'
+  import story from './story.vue'
 
-export default {
-  name: 'siteName',
-  created () {
-    this.fetchTabData()
-    this.selected = 1
-  },
-  data () {
-    return {
-      msg: 'Newer Hacks',
-      selected: undefined,
-      tabdata: [],
-    }
-  },
-  components: {story},
-  methods: {
+  export default {
     
-    fetchTabData: function (input= '/v0/newstories') {
-      this.tabdata = []
-      fetch("https://hacker-news.firebaseio.com" + input + ".json?print=pretty")
-      .then(res => res.json())
-      .then(res => {
-        this.tabdata = res
-        console.log(this.tabdata, '###')
-      })
+    name: 'siteName',
+    
+    created () {
+      this.fetchTabData()
+      this.selected = 1
+    },
+    
+    data () {
+      return {
+        msg: 'Newer Hacks',
+        selected: undefined,
+        tabdata: [],
+      }
+    },
+    
+    components: {story},
+    
+    methods: {
+      
+      fetchTabData: function (input= '/v0/newstories') {
+        this.tabdata = []
+        fetch("https://hacker-news.firebaseio.com" + input + ".json?print=pretty")
+        .then(res => res.json())
+        .then(res => {
+          this.tabdata = res
+          console.log(this.tabdata, '###')
+        })
+      }
     }
+
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.navbar-brand a {
-  font-weight: bold;
-  color: #466EFF;
-  font-size: 120%;
-}
-.navbar-brand :hover{
-  font-weight: bold;
-  color: orange;
-}
 
-.navbar-start a {
-  font-size: 75%;
-  color: orange;
-}
+  .navbar-brand a {
+    font-weight: bold;
+    color: #466EFF;
+    font-size: 120%;
+  }
 
-.navbar-start a:hover{
-  font-size: 80%;
-  color: #466EFF;
-  font-weight: bold;
-  border-bottom: solid 0.2em orange;
-  box-sizing: border-box;
-}
+  .navbar-brand :hover{
+    font-weight: bold;
+    color: orange;
+  }
 
-.router-link-active {
-  font-size: 80%;
-  color: #466EFF !important;
-  font-weight: bold;
-  margin: 0%;
-  box-sizing: border-box;
-  border-bottom: solid 0.2em orange;
-}
+  .navbar-start a {
+    font-size: 75%;
+    color: orange;
+  }
 
-/* .highlight:not(:last-child) {
-    margin-bottom: 0%;
-} */
+  .navbar-start a:hover{
+    font-size: 80%;
+    color: #466EFF;
+    font-weight: bold;
+    border-bottom: solid 0.2em orange;
+    box-sizing: border-box;
+  }
 
-.navbar {
-  border-bottom: solid 0.1em #466EFF;
-}
+  .router-link-active {
+    font-size: 80%;
+    color: #466EFF !important;
+    font-weight: bold;
+    margin: 0%;
+    box-sizing: border-box;
+    border-bottom: solid 0.2em orange;
+  }
+
+  .navbar {
+    border-bottom: solid 0.1em #466EFF;
+  }
+  
 </style>

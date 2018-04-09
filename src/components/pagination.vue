@@ -12,53 +12,49 @@
 
 <script>
 
-export default {
-  name:'pagination',
-  
-  props:['pagenum', 'last']
-}
+  export default {
+    name:'pagination',
+    
+    props:['pagenum', 'last']
+  }
 </script>
 
 <style>
-.pagination nav {
-  margin-top: 2%;
-  border: none;
-  position: inherit;
-}
 
-.pagination {
-  border-top: 1px solid rgba(180, 180, 180, 0.7);
-  margin: 0;
-}
+  .pagination nav {
+    margin-top: 2%;
+    border: none;
+    position: inherit;
+  }
 
-.pagination nav {
- display:-webkit-flex;
- min-width: 30%;
- -webkit-box-align: center; 
- margin: auto !important;
-}
+  .pagination nav {
+  display:-webkit-flex;
+  min-width: 30%;
+  -webkit-box-align: center; 
+  margin: auto !important;
+  }
 
-.pagination-list {
-  max-width: 10%;
-}
+  .pagination-list {
+    max-width: 10%;
+  }
 
-.pagination-next, .pagination-previous {
-  background-color: orange;
-}
+  .pagination-next, .pagination-previous {
+    background-color: orange;
+  }
 
-.pagination-next:hover, .pagination-previous:hover {
-  background-color:#466EFF;
-  color:white;
-}
+  .pagination-next:hover, .pagination-previous:hover {
+    background-color:#466EFF;
+    color:white;
+  }
 
-.pagination-link {
-  background-color:#466EFF;
-  color: white;
-}
+  .pagination-link {
+    background-color:#466EFF;
+    color: white;
+  }
 
-.pagination-link:hover {
-  background-color: orange;
-  color:black;
-}
+  .pagination-link:hover {
+    background-color: orange;
+    color:black;
+  }
 
 </style>
