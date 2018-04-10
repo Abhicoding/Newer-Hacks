@@ -1,13 +1,13 @@
 <template>
   <div class="story">
     <div class="media-content">
-      <article v-for="(item, key) in story" v-bind:key=item.id class="media">
-         <span class="postnum">{{ (key+1) + (page-1)*10 }}</span>
+      <article v-for="(item, index) in story" v-bind:key=item.id class="media">
+         <span class="postnum">{{ (index+1) + (page-1)*10 }}</span>
         <div class="content">
           <p>
             {{item.title}} <a v-if="item.url.hostname" v-bind:href="item.url" target="_blank">({{item.url.hostname}})</a>
           </p>
-          <small> {{item.score}} points · <a><strong><small>{{item.by}}</small></strong></a> · <a>discuss</a> · <a>hide</a> · <time>{{item.elapsed}}</time></small>
+          <small> {{item.karma}} · <a @click="userlink(item.by)"><strong><small>{{item.by}}</small></strong></a> · <a>discuss</a> · <a>hide</a> · <time>{{item.elapsed}}</time></small>
         </div>
       </article>
     </div>
@@ -55,6 +55,8 @@
                 res.url = hostname
               }
               this.now(res)
+              this.points(res)
+              console.log(res)
               this.story.push(res)
               })
             .catch((e) => {
@@ -88,6 +90,15 @@
         } else {
           return input.elapsed = (Math.floor(seconds/(7 * 24 * 3600)) > 1 ? Math.floor(seconds/(7 * 24 * 3600)) + " weeks ago" : Math.floor(seconds/(7 * 24 * 3600)) + " week ago")
         }
+      },
+
+      points: function(input) { //adds point/points suffix to score
+        return input.karma = (input.score == 1 ? input.score + " point" : input.score + " points")
+      },
+
+      userlink: function(input) {
+        alert(input)
+        this.$emit('userclicked', input)
       }
         
     },
@@ -119,15 +130,15 @@
     box-shadow: 0.1pc;
     box-sizing: border-box;
     margin-top: 0%;
-    margin-left: 4%;
+    margin-left: 2%;
     border: 10px;
     padding: 0%;
     float: left;
   }
   
   .media {
-    padding-top: 1%;
-    padding-bottom: 1%;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
     margin-top: 0%;
     border-top: 1px solid rgba(180, 180, 180, 0.7);
   }
@@ -137,8 +148,13 @@
   }
 
   .postnum {
+    box-sizing: content-box;
     float: left;
     margin: 1% 0% 0% 2%;
+  }
+
+  .content p {
+    margin-bottom: 1%;
   }
 
 </style>

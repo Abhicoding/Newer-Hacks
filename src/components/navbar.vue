@@ -1,28 +1,31 @@
 <template>
-<div>
-  <nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-      <a class="navbar-item" href="/">
-        {{msg}}
-      </a>
-    </div>
-    <div class="navbar-menu">
-      <div class="navbar-start">
-        <router-link v-for="(tabitem, index) of tabs" :key=index :to = "tabitem.toLowerCase() + 'stories'"   class="navbar-item" @click.native="selected = index+1; fetchTabData('/v0/' + tabitem.toLowerCase() + 'stories')">
-          {{tabitem}}
-        </router-link>
+  <div>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          {{msg}}
+        </a>
       </div>
+      <div class="navbar-menu">
+        <div class="navbar-start">
+          <router-link v-for="(tabitem, index) of tabs" :key=index :to = "tabitem.toLowerCase() + 'stories'"   class="navbar-item" @click.native="selected = index+1; fetchTabData('/v0/' + tabitem.toLowerCase() + 'stories')">
+            {{tabitem}}
+          </router-link>
+        </div>
+      </div>
+    </nav>
+    <div class="story-div">
+      <story v-show="state[0]" v-if="tabdata.length > 0" :tab="tabdata" v-on:userclicked= "fetchuser"></story>
     </div>
-  </nav>
-  <div class="story-div">
-    <story v-if="tabdata.length > 0" :tab="tabdata"></story>
+    <div class="user-div">
+      <user :userdata="userdata" v-show="state[1]"></user>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
   import story from './story.vue'
-
+  import user from './user.vue'
   export default {
     
     name: 'siteName',
@@ -37,10 +40,12 @@
         msg: 'Newer Hacks',
         selected: undefined,
         tabdata: [],
+        userdata:[],
+        state:[true, false]
       }
     },
     
-    components: {story},
+    components: {story, user},
     
     methods: {
       
@@ -51,6 +56,17 @@
         .then(res => {
           this.tabdata = res
         })
+      },
+
+      fetchuser: function (value) {
+        fetch("https://hacker-news.firebaseio.com/v0/user/"+ value +".json?print=pretty")
+        .then(res => res.json())
+        .then(res => {
+          this.userdata = res
+          console.log(res)
+        })
+        this.state[0] = false
+        this.state[1] = true
       }
     }
 

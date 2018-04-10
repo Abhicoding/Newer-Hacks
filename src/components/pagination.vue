@@ -22,7 +22,7 @@
 <style>
 
   .pagination nav { 
-    margin: auto !important;
+    margin: auto;
   }
 
   .pagination-next, .pagination-previous {
