@@ -7,7 +7,7 @@
           <p>
             {{item.title}} <a v-if="item.url.hostname" v-bind:href="item.url" target="_blank">({{item.url.hostname}})</a>
           </p>
-          <small> {{item.karma}} · <a @click="userlink(item.by)"><strong><small>{{item.by}}</small></strong></a> · <a>discuss</a> · <a>hide</a> · <time>{{item.elapsed}}</time></small>
+          <small> {{item.karma}} · <router-link @click="userlink(item.by)" to="./users"><strong><small>{{item.by}}</small></strong></router-link> · <a>discuss</a> · <a>hide</a> · <time>{{item.elapsed}}</time></small>
         </div>
       </article>
     </div>

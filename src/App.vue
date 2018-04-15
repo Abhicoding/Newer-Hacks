@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <!-- <user></user> -->
-    <navbar></navbar>
+    <router-link to='/'></router-link>
+    <router-view></router-view>
     <!-- <router-view class="view two" name="b"></router-view> -->
   
   </div>
