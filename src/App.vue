@@ -20,8 +20,7 @@ export default {
       currentTab : 'Top'
     }
   },
-  components: { navbar, user
-  }
+  component: navbar
 }
 </script>
 

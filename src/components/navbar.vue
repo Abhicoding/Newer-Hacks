@@ -15,7 +15,7 @@
       </div>
     </nav>
     <div class="story-div">
-      <story v-show="state[0]" v-if="tabdata.length > 0" :tab="tabdata" v-on:userclicked= "fetchuser"></story>
+      <story v-show="state[0]" v-if="tabdata.length > 0" :tab="tabdata" v-on:userclicked= "fetchuser" v-on:statetoggle="setstate"></story>
     </div>
     <div class="user-div">
       <user :userdata="userdata" v-show="state[1]"></user>
@@ -59,13 +59,16 @@
       },
 
       fetchuser: function (value) {
-        this.state[0] = false
-        this.state[1] = true
+        this.state = [false, true]
         fetch("https://hacker-news.firebaseio.com/v0/user/"+ value +".json?print=pretty")
         .then(res => res.json())
         .then(res => {
           this.userdata = res
         })
+      },
+      
+      setstate: function(input) {
+        this.state = input
       }
     }
 

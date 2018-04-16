@@ -56,7 +56,7 @@
               }
               this.now(res)
               this.points(res)
-              console.log(res)
+              // console.log(res)
               this.story.push(res)
               })
             .catch((e) => {
@@ -104,9 +104,12 @@
     
     watch: {
       
-      '$route': function () { // on watch for tab change
+      '$route' (to, from) { // on watch for tab change
+        if (from.name == 'user') {
+          this.$emit('statetoggle', [true, false])
+        }
         this.story=[]
-        this.page=1
+        this.page=1                   // Modify this watcher to allow back navigation from /user
         this.getPosts(this.tab, this.page)
       },
       
