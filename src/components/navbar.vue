@@ -59,14 +59,13 @@
       },
 
       fetchuser: function (value) {
+        this.state[0] = false
+        this.state[1] = true
         fetch("https://hacker-news.firebaseio.com/v0/user/"+ value +".json?print=pretty")
         .then(res => res.json())
         .then(res => {
           this.userdata = res
-          console.log(res)
         })
-        this.state[0] = false
-        this.state[1] = true
       }
     }
 

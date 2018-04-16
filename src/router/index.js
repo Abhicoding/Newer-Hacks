@@ -40,6 +40,11 @@ const routes = [
     path: '/showstories',
     name: 'showstories',
     component: navbar
+  },
+  {
+    path: '/user',
+    name: 'user',
+    component: navbar
   }
 ]
 
