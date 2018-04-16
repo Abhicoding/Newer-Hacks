@@ -105,7 +105,7 @@
     
     watch: {
       
-      tab: function () { // on watch for tab change
+      '$route': function () { // on watch for tab change
         this.story=[]
         this.page=1
         this.getPosts(this.tab, this.page)

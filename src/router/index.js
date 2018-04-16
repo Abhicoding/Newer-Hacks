@@ -15,6 +15,31 @@ const routes = [
     path: '/newstories',
     name: 'newstories',
     component: navbar
+  },
+  {
+    path: '/topstories',
+    name: 'topstories',
+    component: navbar
+  },
+  {
+    path: '/beststories',
+    name: 'beststories',
+    component: navbar
+  },
+  {
+    path: '/askstories',
+    name: 'askstories',
+    component: navbar
+  },
+  {
+    path: '/jobstories',
+    name: 'jobstories',
+    component: navbar
+  },
+  {
+    path: '/showstories',
+    name: 'showstories',
+    component: navbar
   }
 ]
 
